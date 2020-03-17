@@ -34,21 +34,29 @@
     
 </div>
 
-<p>The <a href="http://leedscodedojo.github.io/">Leeds Code Dojo</a> is a meet-up group dedicated to programing, it focusses on small coding challenges, where you pair up and have a crack!</p>
-<p>I recently had a go at setting one of the challenges, I picked the Roman Numeral Kata (You can find this kata in the <a href="https://leanpub.com/codingdojohandbook">Coding Dojo Handbook</a>.</p>
+<div class="floatRight">
+<p><img src="../images/posts/romannumerals/p1.jpg" style="width: 100%" /> <img src="../images/posts/romannumerals/p2.jpg" style="width: 100%" /> <img src="../images/posts/romannumerals/p3.jpg" style="width: 100%" /> <img src="../images/posts/romannumerals/p4.jpg" style="width: 100%" /></p>
+</div>
+<p>The <a href="http://leedscodedojo.github.io/">Leeds Code Dojo</a> is a meet-up group dedicated to programing, it focusses on small coding challenges, where you pair up and have a go at solving the challenge(s).</p>
+<p>I recently had a go at setting one of the challenges, so I picked the very enjoyable Roman Numeral Kata (You can find this kata in the <a href="https://leanpub.com/codingdojohandbook">Coding Dojo Handbook</a>.</p>
 <h2 id="roman-numerals">Roman Numerals?!</h2>
-<p>If you are unfamiliar, Roman Numerals, were used in Ancient Rome (8th century BC) and continued to be used until late middle ages (1000 - 1250 AD), however you still seem them used today on things like BBC show credits and, erm… on clocks.</p>
-<p>Used Latin alphabet characters for numerical notation (I, V, X, L, C, D, M), and was the most used number system in Europe for over M years. Oh, that’s one thousand to you.</p>
+<p>If you are unfamiliar, Roman Numerals were used in Ancient Rome (8th century BC) and continued to be used until the late middle ages (1000 - 1250 AD). You still see them used today on things like BBC show credits and, erm… on the face of clocks.</p>
+<p>The Romans used a combination of Latin alphabet characters (I, V, X, L, C, D, M) to represent numbers, it might seem a little odd compared to our modern arabic numbers system, but it was pretty good for the time and was the most used number system in Europe for over M years (<em>that’s 1000 years</em>).</p>
 <h2 id="the-challenge">The Challenge</h2>
-<p>The challenge is to write some code that takes an integer, and returns a number.</p>
-<p><em>“Easy”</em> I hear you cry, roman numerals are base 10 (good news if you have 10 fingers!), so this should be a simple translation?</p>
+<p>The challenge is to write some code that takes an integer, and returns the equivalent roman numeral.</p>
+<p><em><em>“Easy!, this should be a simple translation?”</em></em></p>
 <p>Not so fast! There are some things that might make it a little more complicated than you might first imagine.</p>
 <p>Firstly, it’s not a simple translation because there are only seven characters.</p>
+<p>Secondly, there’s the repetition of characters to think about. <code>1, 2, 3</code> becomes <code>I, II, III</code></p>
+<p>Thirdly, when there’s no repetition, there’s often this weird subtraction and additive notation:<br />
+* <code>5</code> is <code>V</code> * but <code>4</code> is <code>IV</code> - (or <code>1 before 5</code>). * <code>6</code> is then <code>VI</code>.</p>
 <p><em>“Ah”</em></p>
-<p>Secondly, there’s this weird repetition of characters to think about. <code>1, 2, 3</code> becomes <code>I, II, III</code></p>
-<p>Thirdly, when there’s no repetition, there’s often this weird subtraction notation. <code>5</code> is <code>V</code> but <code>4</code> is <code>IV</code>, or <code>1 before 5</code>.</p>
+<p>Suffice to say it’s not without a challenge</p>
+<h2 id="fancy-a-go">Fancy a go?</h2>
+<p>The kata is outlined here: <a>https://github.com/LeedsCodeDojo/RomanNumerals</a></p>
+<p>There’s a readme, and powerpoint presentation where I introduce and outline the challenge, (feel free to use this for your dojo).</p>
 <h2 id="my-first-attempt">My First attempt</h2>
-<p>I was TDD’ing this, so this initial attempt came about quite quickly…</p>
+<p>I was TDD’ing this, so this initial attempt came about a little quicker than I had first imagined…</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="ot">toRoman ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">String</span></a>
 <a class="sourceLine" id="cb1-2" title="2">toRoman n </a>
 <a class="sourceLine" id="cb1-3" title="3">  <span class="fu">|</span> n <span class="fu">==</span> <span class="dv">0</span>           <span class="fu">=</span> <span class="st">&quot;&quot;</span></a>
@@ -65,12 +73,12 @@
 <a class="sourceLine" id="cb1-14" title="14">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">5</span> <span class="fu">&gt;</span> <span class="dv">0</span>    <span class="fu">=</span> <span class="ch">'V'</span><span class="fu">:</span>    toRoman (n<span class="fu">-</span><span class="dv">5</span>)</a>
 <a class="sourceLine" id="cb1-15" title="15">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">4</span> <span class="fu">&gt;</span> <span class="dv">0</span>    <span class="fu">=</span> <span class="ch">'I'</span><span class="fu">:</span><span class="ch">'V'</span><span class="fu">:</span>toRoman (n<span class="fu">-</span><span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb1-16" title="16">  <span class="fu">|</span> <span class="fu">otherwise</span>        <span class="fu">=</span> <span class="ch">'I'</span><span class="fu">:</span>    toRoman (n<span class="fu">-</span><span class="dv">1</span>)</a></code></pre></div>
-<p>I think there’s pros and cons of this approach:<br />
+<p>I think there’s pros and cons of this algorithm:<br />
 + The algorithm is pretty clear.</p>
 <p>But…<br />
 - There’s a lot of repeated code.<br />
-- Operations performed multiple times.<br />
-- Could capture the quotient and use that to determine number of numerals, instead of subtracting and recursing.<br />
+- Some operations are performed multiple times when they could be done just once.<br />
+- We could capture the quotient and use that to determine number of numerals, instead of subtracting and recursing.<br />
 - Hard to add another numeral without changing algorithm.</p>
 <p>Luckily we have a full suite of tests now, so it’s easy to improve it or write something different.</p>
 <h2 id="removing-the-duplicate-code">Removing the duplicate code:</h2>
@@ -82,8 +90,8 @@
 <a class="sourceLine" id="cb2-6" title="6"><span class="ot">numerals ::</span> [(<span class="dt">Int</span>, <span class="dt">String</span>)]</a>
 <a class="sourceLine" id="cb2-7" title="7">numerals <span class="fu">=</span> [(<span class="dv">1</span>,<span class="st">&quot;I&quot;</span>),(<span class="dv">4</span>,<span class="st">&quot;IV&quot;</span>),(<span class="dv">5</span>,<span class="st">&quot;V&quot;</span>),(<span class="dv">9</span>,<span class="st">&quot;IX&quot;</span>),(<span class="dv">10</span>,<span class="st">&quot;X&quot;</span>),(<span class="dv">40</span>,<span class="st">&quot;XL&quot;</span>),(<span class="dv">50</span>,<span class="st">&quot;L&quot;</span>),</a>
 <a class="sourceLine" id="cb2-8" title="8">            (<span class="dv">90</span>,<span class="st">&quot;XC&quot;</span>),(<span class="dv">100</span>,<span class="st">&quot;C&quot;</span>),(<span class="dv">400</span>,<span class="st">&quot;CD&quot;</span>),(<span class="dv">500</span>,<span class="st">&quot;D&quot;</span>),(<span class="dv">900</span>,<span class="st">&quot;CM&quot;</span>),(<span class="dv">1000</span>,<span class="st">&quot;M&quot;</span>)]</a></code></pre></div>
-<p>Well the repetition is gone, and it’s easy to add new numeral without changing algorithm should you find a time machine and change the rules.</p>
-<p>However I don’t think the algorithm is very clear, especially if you’re unfamiliar with FP or Haskell.</p>
+<p>Well the repetition is gone, and it’s easy to add new numeral without changing algorithm should you find a time-machine and change the rules.</p>
+<p>However I don’t think the algorithm is particularly clear, especially if you’re unfamiliar with FP or Haskell.</p>
 <h2 id="another-go">Another go?</h2>
 <p>Let’s use that associative map of numerals from above, and filter out the numbers we don’t need and then use co-recursion again to join together a string of numerals…</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" title="1"><span class="ot">toRoman4 ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">String</span></a>
