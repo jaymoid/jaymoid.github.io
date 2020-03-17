@@ -8,7 +8,6 @@
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-
           gtag('config', 'UA-263882-1');
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -28,10 +27,8 @@
                 <a href="../archive.html">Archive</a>
             </div>
         </div>
-
         <div id="content">
             <h1>Some ways to generate fibonacci in Haskell</h1>
-
             <div class="info">
     Posted on March  5, 2020
     
@@ -50,11 +47,12 @@
 <a class="sourceLine" id="cb1-10" title="10">fibZip <span class="fu">=</span> <span class="dv">0</span> <span class="fu">:</span> <span class="dv">1</span> <span class="fu">:</span> <span class="fu">zipWith</span> (<span class="fu">+</span>) fibZip (<span class="fu">tail</span> fibZip)</a>
 <a class="sourceLine" id="cb1-11" title="11"></a>
 <a class="sourceLine" id="cb1-12" title="12"><span class="ot">fibAnamorphism ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> [a]</a>
-<a class="sourceLine" id="cb1-13" title="13">fibAnamorphism <span class="fu">=</span> unfoldr (\(a,b) <span class="ot">-&gt;</span> <span class="kw">let</span> fibNum <span class="fu">=</span> a<span class="fu">+</span>b </a>
-<a class="sourceLine" id="cb1-14" title="14">                                    <span class="kw">in</span> <span class="dt">Just</span> (fibNum, (b,fibNum))) (<span class="dv">0</span>,<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb1-15" title="15"></a>
-<a class="sourceLine" id="cb1-16" title="16"><span class="ot">fibAnamorphism' ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> [a]</a>
-<a class="sourceLine" id="cb1-17" title="17">fibAnamorphism' <span class="fu">=</span> <span class="fu">fst</span> <span class="fu">&lt;$&gt;</span> <span class="fu">iterate</span> (\(a,b) <span class="ot">-&gt;</span> (b,a<span class="fu">+</span>b)) (<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-13" title="13">fibAnamorphism <span class="fu">=</span> unfoldr </a>
+<a class="sourceLine" id="cb1-14" title="14">                  (\(a,b) <span class="ot">-&gt;</span> <span class="kw">let</span> fibNum <span class="fu">=</span> a<span class="fu">+</span>b <span class="kw">in</span> <span class="dt">Just</span> (fibNum, (b,fibNum))) </a>
+<a class="sourceLine" id="cb1-15" title="15">                  (<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb1-16" title="16"></a>
+<a class="sourceLine" id="cb1-17" title="17"><span class="ot">fibAnamorphism' ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> [a]</a>
+<a class="sourceLine" id="cb1-18" title="18">fibAnamorphism' <span class="fu">=</span> <span class="fu">fst</span> <span class="fu">&lt;$&gt;</span> <span class="fu">iterate</span> (\(a,b) <span class="ot">-&gt;</span> (b,a<span class="fu">+</span>b)) (<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
 
         </div>
         <div id="footer">
