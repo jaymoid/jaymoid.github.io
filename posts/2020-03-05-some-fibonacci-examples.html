@@ -33,7 +33,11 @@
     Posted on March  5, 2020
     
 </div>
-
+<div class="info">
+    
+        Tags: <a href="../tags/beginners%20haskell.html">beginners haskell</a>, <a href="../tags/haskell.html">haskell</a>, <a href="../tags/fibonacci.html">fibonacci</a>
+    
+</div>
 <p>The <a href="https://www.wolframalpha.com/input/?i=Fibonacci+sequence">Fibonacci Sequence</a> is a integer number sequence, where each term is the sum of the previous two terms.</p>
 <p>I think every programmer has come across this sequence either when they are learning a new language, or because they have to estimate some work in story points.</p>
 <p>I thought I would walk through this familiar problem with a few simple-ish Haskell solutions, mainly becuase I think it’s cool, and I think it demonstrates a few really nice features of the language.</p>
@@ -103,7 +107,7 @@
 <a class="sourceLine" id="cb14-2" title="2">[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a></code></pre></div>
 <p>As we already know the first two values passed to the scan function are:<br />
 * the initial value <code>1</code> which is applied to scanl<br />
-* the <code>1</code> from the start of the function: <code>'fib = 1 : ...\'</code>.</p>
+* the <code>1</code> from the start of the function: <code>'fib = 1 : ...'</code>.</p>
 <p>So when it comes to compute the third fibonacci value, we take the previous two values, and apply the (+) function to them, yielding <code>2</code>. You can then repeat this pattern for all the remaining infinite fibonacci values.</p>
 <p>Here’s a slight variation on this solution, perhaps this one makes more sense to you?</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb15-1" title="1"><span class="ot">fib ::</span> [<span class="dt">Integer</span>]</a>
