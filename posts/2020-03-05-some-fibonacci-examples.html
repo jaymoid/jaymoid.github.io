@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-263882-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-263882-1');
+        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>pittendreigh.co.uk - Some ways to generate fibonacci in Haskell</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc-pittendreigh.css" />
+    </head>
+
+    <body>
+      <div id="maincontent">
+        <div id="header" class="card">
+            <div id="logo" class="console">
+                [<a href="../">~/pittendreigh.co.uk</a>]<span class="lambda">λ</span>
+            </div>
+            <div id="navigation">
+                <a href="../contact.html">contact</a>
+                <a href="../">home</a>
+            </div>
+        </div>
+
+        <div id="content" class="card">
+            <h1>Some ways to generate fibonacci in Haskell</h1>
+            <div class="info">
+    Posted on March  5, 2020
+    
+</div>
+<div class="info">
+    
+        Tags: <a href="../tags/beginners%20haskell.html">beginners haskell</a>, <a href="../tags/haskell.html">haskell</a>, <a href="../tags/fibonacci.html">fibonacci</a>
+    
+</div>
+<p>The <a href="https://www.wolframalpha.com/input/?i=Fibonacci+sequence">Fibonacci Sequence</a> is a integer number sequence, where each term is the sum of the previous two terms.</p>
+<p>I think every programmer has come across this sequence either when they are learning a new language, or because they have to estimate some work in story points.</p>
+<p>I thought I would walk through this familiar problem with a few simple-ish Haskell solutions, mainly becuase I think it’s cool, and I think it demonstrates a few really nice features of the language.</p>
+<hr />
+<h2 id="the-classic-co-recursive-version.">1. The classic, co-recursive version.</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="ot">fib ::</span> <span class="dt">Integer</span> <span class="ot">-&gt;</span> <span class="dt">Integer</span></a>
+<a class="sourceLine" id="cb1-2" title="2">fib n </a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="fu">|</span> n <span class="fu">&lt;</span> <span class="dv">2</span>     <span class="fu">=</span> n</a>
+<a class="sourceLine" id="cb1-4" title="4">  <span class="fu">|</span> <span class="fu">otherwise</span> <span class="fu">=</span> fib (n<span class="fu">-</span><span class="dv">1</span>) <span class="fu">+</span> fib (n<span class="fu">-</span><span class="dv">2</span>)</a></code></pre></div>
+<p>I think this algorithm explains the sequence really nicely, it reads a bit like the formal definition. I’ll assume you haven’t ever read or written any Haskell and walk you through this, step by step.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1"><span class="ot">fib ::</span> <span class="dt">Integer</span> <span class="ot">-&gt;</span> <span class="dt">Integer</span></a></code></pre></div>
+<p>^ This is the function signature, it says the <code>fib</code> function, is applied to an <code>Integer</code>, and the result is an <code>Integer</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" title="1">fib n </a></code></pre></div>
+<p>^ This just tells us that the parameter (the Integer) in the signature, will be assigned to the variable <code>n</code>.</p>
+<p>This next bit is a “guard”, and it’s a type of conditional branching.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb4-1" title="1">  <span class="fu">|</span> n <span class="fu">&lt;</span> <span class="dv">2</span>     <span class="fu">=</span> n</a>
+<a class="sourceLine" id="cb4-2" title="2">  <span class="fu">|</span> <span class="fu">otherwise</span> <span class="fu">=</span> fib (n<span class="fu">-</span><span class="dv">1</span>) <span class="fu">+</span> fib (n<span class="fu">-</span><span class="dv">2</span>)</a></code></pre></div>
+<p>When <code>n</code> is less than <code>2</code>, we can just return <code>n</code>. Otherwise, we invoke the <code>fib</code> function with <code>n-1</code>, and once again with <code>n-2</code>, and add them together.</p>
+<p>Let’s say we invoke <code>fib</code> with <code>3</code>: <code>n</code> is greater than <code>2</code>, so we invoke <code>fib 2</code> and <code>fib 1</code> and add the results together.</p>
+<p>This is good, but what if we want a list of fibonacci numbers, not just a single fibonacci number for <code>n</code>?</p>
+<p>We can map our fib function over a list! For example…</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb5-1" title="1">λ<span class="fu">&gt;</span> <span class="fu">map</span> fib [<span class="dv">0</span><span class="fu">..</span><span class="dv">20</span>]</a>
+<a class="sourceLine" id="cb5-2" title="2">[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">8</span>,<span class="dv">13</span>,<span class="dv">21</span>,<span class="dv">34</span>,<span class="dv">55</span>,<span class="dv">89</span>,<span class="dv">144</span>,<span class="dv">233</span>,<span class="dv">377</span>,<span class="dv">610</span>,<span class="dv">987</span>,<span class="dv">1597</span>,<span class="dv">2584</span>,<span class="dv">4181</span>,<span class="dv">6765</span>]</a></code></pre></div>
+<p>This is pretty cool, we’ve learnt a few things about Haskell:</p>
+<ul>
+<li>it has some interesting looking pattern matching</li>
+<li>it supports recursion, like proper recursion, that won’t blow your stack, and is not just restricted to “tail call” recursion.</li>
+<li>you can map functions over data structures, spoiler alert: this turns out to be quite a fundamental concept.</li>
+</ul>
+<hr />
+<h2 id="using-a-scan-function">2. Using a scan function</h2>
+<p>Check out this crazy little one liner!</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb6-1" title="1"><span class="ot">fib ::</span> [<span class="dt">Integer</span>]</a>
+<a class="sourceLine" id="cb6-2" title="2">fib <span class="fu">=</span> <span class="dv">1</span> <span class="fu">:</span> <span class="fu">scanl</span> (<span class="fu">+</span>) <span class="dv">1</span> fib</a></code></pre></div>
+<p>Let’s get the easy bit out of the way:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb7-1" title="1"><span class="ot">fib ::</span> [<span class="dt">Integer</span>]</a></code></pre></div>
+<p>^ Tells us the fib function returns a list of Integers.</p>
+<p>Onto the meaty bit… Scan functions, are a bit like fold functions - which typically applies function over a data type to yield a single result.</p>
+<p>Here we can apply the addition function over a list of the values 1-5, with a starting value of 0.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb8-1" title="1">λ<span class="fu">&gt;</span> <span class="fu">foldl</span> (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="dv">15</span></a></code></pre></div>
+<p>The answer is 15 because: <code>(((((0 + 1) + 2) + 3) + 4) + 5) == 15</code></p>
+<p>A scan function however, is different in that it also returns all of the intermediate values. Let’s swap out the fold for a scan and see the difference:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb9-1" title="1">λ<span class="fu">&gt;</span> <span class="fu">scanl</span> (<span class="fu">+</span>) <span class="dv">0</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">5</span>]</a>
+<a class="sourceLine" id="cb9-2" title="2">[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">6</span>,<span class="dv">10</span>,<span class="dv">15</span>]</a></code></pre></div>
+<p>^ The first difference is we get a list result instead of a single value. We can also see that we obtained all of the intermediate values of the computation, all the way up to the final value of 15.</p>
+<p>…</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb10-1" title="1">fib <span class="fu">=</span> <span class="dv">1</span> <span class="fu">:</span></a></code></pre></div>
+<p>^ The next bit to understand is that we need to start the list of fibonacci off somewhere, so we say that the list starts with a 1, which is added to the rest of the list (which is calculated by the scan function).</p>
+<p>The <code>:</code> character is a cons operator, and is an infix operator used to add a value to a list. Some people say that you <code>cons</code> something to a list. I think the term originated from the language Lisp, which heavily makes use of lists, hence why Lisp programmers are also known as Cons-artists.</p>
+<p>…</p>
+<p>Finally we have arrived at the fun bit…</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb11-1" title="1">fib <span class="fu">=</span> <span class="dv">1</span> <span class="fu">:</span> <span class="fu">scanl</span> (<span class="fu">+</span>) <span class="dv">1</span> fib</a></code></pre></div>
+<p>You have to bear in mind is that Haskell is lazily evaluated (or non-strict to be precise). So when we see that the <code>scanl</code> function is mapping the <code>(+)</code> add function over itself, it only needs to compute as much as it needs to determine the answer.</p>
+<p>This is probably best explained with a simple example.</p>
+<p>If we only take the first value form this sequence, it will be 1:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb12-1" title="1">λ<span class="fu">&gt;</span> <span class="fu">take</span> <span class="dv">1</span> fib</a>
+<a class="sourceLine" id="cb12-2" title="2">[<span class="dv">1</span>]</a></code></pre></div>
+<p>^ this is because we put <code>fib = 1 : ...</code> we haven’t even invoked the scan function at this point.</p>
+<p>Taking 2 values from fib:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb13-1" title="1">λ<span class="fu">&gt;</span> <span class="fu">take</span> <span class="dv">2</span> fib</a>
+<a class="sourceLine" id="cb13-2" title="2">[<span class="dv">1</span>,<span class="dv">1</span>]</a></code></pre></div>
+<p>^ give us <code>[1,1]</code> and we have invoked the scan function, but we are returning the initial starting value, the <code>'1'</code> in <code>'scanl (+) 1 fib'</code>.</p>
+<p>I think that’s actually the tricky bit explained!</p>
+<p>It’s only once we start to get more than one value from fib, that we get to see scan mapping the (+) over the fib function, where it is used.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb14-1" title="1">λ<span class="fu">&gt;</span> <span class="fu">take</span> <span class="dv">4</span> fib</a>
+<a class="sourceLine" id="cb14-2" title="2">[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</a></code></pre></div>
+<p>As we already know the first two values passed to the scan function are:<br />
+* the initial value <code>1</code> which is applied to scanl<br />
+* the <code>1</code> from the start of the function: <code>'fib = 1 : ...'</code>.</p>
+<p>So when it comes to compute the third fibonacci value, we take the previous two values, and apply the (+) function to them, yielding <code>2</code>. You can then repeat this pattern for all the remaining infinite fibonacci values.</p>
+<p>Here’s a slight variation on this solution, perhaps this one makes more sense to you?</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb15-1" title="1"><span class="ot">fib ::</span> [<span class="dt">Integer</span>]</a>
+<a class="sourceLine" id="cb15-2" title="2">fib <span class="fu">=</span> <span class="fu">scanl</span> (<span class="fu">+</span>) <span class="dv">1</span> (<span class="dv">1</span><span class="fu">:</span>fib)</a></code></pre></div>
+<hr />
+<p>Here’s a few more, they’re a bit beyond the scope of the simple explanations though.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb16-1" title="1"><span class="ot">fibZip ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> [a]</a>
+<a class="sourceLine" id="cb16-2" title="2">fibZip <span class="fu">=</span> <span class="dv">0</span> <span class="fu">:</span> <span class="dv">1</span> <span class="fu">:</span> <span class="fu">zipWith</span> (<span class="fu">+</span>) fibZip (<span class="fu">tail</span> fibZip)</a>
+<a class="sourceLine" id="cb16-3" title="3"></a>
+<a class="sourceLine" id="cb16-4" title="4"><span class="ot">fibLC ::</span> [<span class="dt">Integer</span>]</a>
+<a class="sourceLine" id="cb16-5" title="5">fibLC <span class="fu">=</span> [a <span class="fu">+</span> b <span class="fu">|</span> a <span class="ot">&lt;-</span> <span class="dv">1</span><span class="fu">:</span>fibLC, b <span class="ot">&lt;-</span> <span class="dv">0</span><span class="fu">:</span><span class="dv">1</span><span class="fu">:</span>fibLC]</a>
+<a class="sourceLine" id="cb16-6" title="6"></a>
+<a class="sourceLine" id="cb16-7" title="7"><span class="ot">fibAnamorphism ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> [a]</a>
+<a class="sourceLine" id="cb16-8" title="8">fibAnamorphism <span class="fu">=</span> unfoldr </a>
+<a class="sourceLine" id="cb16-9" title="9">                  (\(a,b) <span class="ot">-&gt;</span> <span class="kw">let</span> fibNum <span class="fu">=</span> a<span class="fu">+</span>b <span class="kw">in</span> <span class="dt">Just</span> (fibNum, (b,fibNum))) </a>
+<a class="sourceLine" id="cb16-10" title="10">                  (<span class="dv">0</span>,<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb16-11" title="11"></a>
+<a class="sourceLine" id="cb16-12" title="12"><span class="ot">fibAnamorphism' ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> [a]</a>
+<a class="sourceLine" id="cb16-13" title="13">fibAnamorphism' <span class="fu">=</span> <span class="fu">fst</span> <span class="fu">&lt;$&gt;</span> <span class="fu">iterate</span> (\(a,b) <span class="ot">-&gt;</span> (b,a<span class="fu">+</span>b)) (<span class="dv">0</span>,<span class="dv">1</span>)</a></code></pre></div>
+<p>I hope you enjoyed this little journey into Haskell.</p>
+
+        </div>
+      </div>
+        <div id="footer">
+          <div id="socials">
+            <a href="https://twitter.com/jaymoid"><img src="../images/twitter-545454.svg" /></a>
+            <a href="https://www.linkedin.com/in/jamespittendreigh/"><img src="../images/linkedin-545454.svg" /></a>
+            <a href="https://github.com/jaymoid"><img src="../images/github-545454.svg" /></a>
+          </div>
+          <div id="hakyll" class="console">
+            Site lovingly generated by 
+            <a href="https://www.haskell.org/"">Haskell</a> and 
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+          </div>
+        </div>
+
+    </body>
+</html>

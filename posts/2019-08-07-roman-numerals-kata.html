@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-263882-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-263882-1');
+        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>pittendreigh.co.uk - The Roman Numerals Kata - @LeedsCodeDojo</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc-pittendreigh.css" />
+    </head>
+
+    <body>
+      <div id="maincontent">
+        <div id="header" class="card">
+            <div id="logo" class="console">
+                [<a href="../">~/pittendreigh.co.uk</a>]<span class="lambda">λ</span>
+            </div>
+            <div id="navigation">
+                <a href="../contact.html">contact</a>
+                <a href="../">home</a>
+            </div>
+        </div>
+
+        <div id="content" class="card">
+            <h1>The Roman Numerals Kata - @LeedsCodeDojo</h1>
+            <div class="info">
+    Posted on August  7, 2019
+    
+</div>
+<div class="info">
+    
+        Tags: <a href="../tags/kata.html">kata</a>, <a href="../tags/haskell.html">haskell</a>, <a href="../tags/code%20dojo.html">code dojo</a>
+    
+</div>
+<div class="floatRight">
+<p><img src="../images/posts/romannumerals/p1.jpg" style="width: 100%" /> <img src="../images/posts/romannumerals/p2.jpg" style="width: 100%" /> <img src="../images/posts/romannumerals/p3.jpg" style="width: 100%" /> <img src="../images/posts/romannumerals/p4.jpg" style="width: 100%" /></p>
+</div>
+<p>The <a href="http://leedscodedojo.github.io/">Leeds Code Dojo</a> is a meet-up group dedicated to programing, it focusses on small coding challenges, where you pair up and have a go at solving the challenge(s).</p>
+<p>I recently had a go at setting one of the challenges, so I picked the very enjoyable Roman Numeral Kata (You can find this kata in the <a href="https://leanpub.com/codingdojohandbook">Coding Dojo Handbook</a>.</p>
+<h2 id="roman-numerals">Roman Numerals?!</h2>
+<p>If you are unfamiliar, Roman Numerals were used in Ancient Rome (8th century BC) and continued to be used until the late middle ages (1000 - 1250 AD). You still see them used today on things like BBC show credits and, erm… on the face of clocks.</p>
+<p>The Romans used a combination of Latin alphabet characters (I, V, X, L, C, D, M) to represent numbers, it might seem a little odd compared to our modern arabic numbers system, but it was pretty good for the time and was the most used number system in Europe for over M years (<em>that’s 1000 years</em>).</p>
+<h2 id="the-challenge">The Challenge</h2>
+<p>The challenge is to write some code that takes an integer, and returns the equivalent roman numeral.</p>
+<p><em><em>“Easy!, this should be a simple translation?”</em></em></p>
+<p>Not so fast! There are some things that might make it a little more complicated than you might first imagine.</p>
+<p>Firstly, it’s not a simple translation because there are only seven characters.</p>
+<p>Secondly, there’s the repetition of characters to think about. <code>1, 2, 3</code> becomes <code>I, II, III</code></p>
+<p>Thirdly, when there’s no repetition, there’s often this weird subtraction and additive notation:<br />
+* <code>5</code> is <code>V</code> * but <code>4</code> is <code>IV</code> - (or <code>1 before 5</code>). * <code>6</code> is then <code>VI</code>.</p>
+<p><em>“Ah”</em></p>
+<p>Suffice to say it’s not without a challenge</p>
+<h2 id="fancy-a-go">Fancy a go?</h2>
+<p>The kata is outlined here: <a>https://github.com/LeedsCodeDojo/RomanNumerals</a></p>
+<p>There’s a readme, and powerpoint presentation where I introduce and outline the challenge, (feel free to use this for your dojo).</p>
+<h2 id="my-first-attempt">My First attempt</h2>
+<p>I was TDD’ing this, so this initial attempt came about a little quicker than I had first imagined…</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1"><span class="ot">toRoman ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">String</span></a>
+<a class="sourceLine" id="cb1-2" title="2">toRoman n </a>
+<a class="sourceLine" id="cb1-3" title="3">  <span class="fu">|</span> n <span class="fu">==</span> <span class="dv">0</span>           <span class="fu">=</span> <span class="st">&quot;&quot;</span></a>
+<a class="sourceLine" id="cb1-4" title="4">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">1000</span> <span class="fu">&gt;</span> <span class="dv">0</span> <span class="fu">=</span> <span class="ch">'M'</span><span class="fu">:</span>    toRoman (n<span class="fu">-</span><span class="dv">1000</span>)</a>
+<a class="sourceLine" id="cb1-5" title="5">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">900</span> <span class="fu">&gt;</span> <span class="dv">0</span>  <span class="fu">=</span> <span class="ch">'C'</span><span class="fu">:</span><span class="ch">'M'</span><span class="fu">:</span>toRoman (n<span class="fu">-</span><span class="dv">900</span>)</a>
+<a class="sourceLine" id="cb1-6" title="6">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">500</span> <span class="fu">&gt;</span> <span class="dv">0</span>  <span class="fu">=</span> <span class="ch">'D'</span><span class="fu">:</span>    toRoman (n<span class="fu">-</span><span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb1-7" title="7">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">400</span> <span class="fu">&gt;</span> <span class="dv">0</span>  <span class="fu">=</span> <span class="ch">'C'</span><span class="fu">:</span><span class="ch">'D'</span><span class="fu">:</span>toRoman (n<span class="fu">-</span><span class="dv">400</span>)</a>
+<a class="sourceLine" id="cb1-8" title="8">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">100</span> <span class="fu">&gt;</span> <span class="dv">0</span>  <span class="fu">=</span> <span class="ch">'C'</span><span class="fu">:</span>    toRoman (n<span class="fu">-</span><span class="dv">100</span>)</a>
+<a class="sourceLine" id="cb1-9" title="9">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">90</span> <span class="fu">&gt;</span> <span class="dv">0</span>   <span class="fu">=</span> <span class="ch">'X'</span><span class="fu">:</span><span class="ch">'C'</span><span class="fu">:</span>toRoman (n<span class="fu">-</span><span class="dv">90</span>)</a>
+<a class="sourceLine" id="cb1-10" title="10">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">50</span> <span class="fu">&gt;</span> <span class="dv">0</span>   <span class="fu">=</span> <span class="ch">'L'</span><span class="fu">:</span>    toRoman (n<span class="fu">-</span><span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb1-11" title="11">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">40</span> <span class="fu">&gt;</span> <span class="dv">0</span>   <span class="fu">=</span> <span class="ch">'X'</span><span class="fu">:</span><span class="ch">'L'</span><span class="fu">:</span>toRoman (n<span class="fu">-</span><span class="dv">40</span>)</a>
+<a class="sourceLine" id="cb1-12" title="12">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">10</span> <span class="fu">&gt;</span> <span class="dv">0</span>   <span class="fu">=</span> <span class="ch">'X'</span><span class="fu">:</span>    toRoman (n<span class="fu">-</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb1-13" title="13">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">9</span> <span class="fu">&gt;</span> <span class="dv">0</span>    <span class="fu">=</span> <span class="ch">'I'</span><span class="fu">:</span><span class="ch">'X'</span><span class="fu">:</span>toRoman (n<span class="fu">-</span><span class="dv">9</span>)</a>
+<a class="sourceLine" id="cb1-14" title="14">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">5</span> <span class="fu">&gt;</span> <span class="dv">0</span>    <span class="fu">=</span> <span class="ch">'V'</span><span class="fu">:</span>    toRoman (n<span class="fu">-</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb1-15" title="15">  <span class="fu">|</span> n <span class="ot">`div`</span> <span class="dv">4</span> <span class="fu">&gt;</span> <span class="dv">0</span>    <span class="fu">=</span> <span class="ch">'I'</span><span class="fu">:</span><span class="ch">'V'</span><span class="fu">:</span>toRoman (n<span class="fu">-</span><span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb1-16" title="16">  <span class="fu">|</span> <span class="fu">otherwise</span>        <span class="fu">=</span> <span class="ch">'I'</span><span class="fu">:</span>    toRoman (n<span class="fu">-</span><span class="dv">1</span>)</a></code></pre></div>
+<p>I think there’s pros and cons of this algorithm:<br />
++ The algorithm is pretty clear.</p>
+<p>But…<br />
+- There’s a lot of repeated code.<br />
+- Some operations are performed multiple times when they could be done just once.<br />
+- We could capture the quotient and use that to determine number of numerals, instead of subtracting and recursing.<br />
+- Hard to add another numeral without changing algorithm.</p>
+<p>Luckily we have a full suite of tests now, so it’s easy to improve it or write something different.</p>
+<h2 id="removing-the-duplicate-code">Removing the duplicate code:</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb2-1" title="1"><span class="ot">toRoman2 ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">String</span> </a>
+<a class="sourceLine" id="cb2-2" title="2">toRoman2 n <span class="fu">=</span> <span class="fu">snd</span> <span class="fu">$</span> <span class="fu">foldr</span> f (n, <span class="st">&quot;&quot;</span>) numerals</a>
+<a class="sourceLine" id="cb2-3" title="3">  <span class="kw">where</span> f (i, numeral) (n', str) <span class="fu">=</span> <span class="kw">let</span> (q, r) <span class="fu">=</span> n' <span class="ot">`divMod`</span> i</a>
+<a class="sourceLine" id="cb2-4" title="4">                                   <span class="kw">in</span>  (r, str <span class="fu">&lt;&gt;</span> <span class="fu">concat</span> (<span class="fu">replicate</span> q numeral))</a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="ot">numerals ::</span> [(<span class="dt">Int</span>, <span class="dt">String</span>)]</a>
+<a class="sourceLine" id="cb2-7" title="7">numerals <span class="fu">=</span> [(<span class="dv">1</span>,<span class="st">&quot;I&quot;</span>),(<span class="dv">4</span>,<span class="st">&quot;IV&quot;</span>),(<span class="dv">5</span>,<span class="st">&quot;V&quot;</span>),(<span class="dv">9</span>,<span class="st">&quot;IX&quot;</span>),(<span class="dv">10</span>,<span class="st">&quot;X&quot;</span>),(<span class="dv">40</span>,<span class="st">&quot;XL&quot;</span>),(<span class="dv">50</span>,<span class="st">&quot;L&quot;</span>),</a>
+<a class="sourceLine" id="cb2-8" title="8">            (<span class="dv">90</span>,<span class="st">&quot;XC&quot;</span>),(<span class="dv">100</span>,<span class="st">&quot;C&quot;</span>),(<span class="dv">400</span>,<span class="st">&quot;CD&quot;</span>),(<span class="dv">500</span>,<span class="st">&quot;D&quot;</span>),(<span class="dv">900</span>,<span class="st">&quot;CM&quot;</span>),(<span class="dv">1000</span>,<span class="st">&quot;M&quot;</span>)]</a></code></pre></div>
+<p>Well the repetition is gone, and it’s easy to add new numeral without changing algorithm should you find a time-machine and change the rules.</p>
+<p>However I don’t think the algorithm is particularly clear, especially if you’re unfamiliar with FP or Haskell.</p>
+<h2 id="another-go">Another go?</h2>
+<p>Let’s use that associative map of numerals from above, and filter out the numbers we don’t need and then use co-recursion again to join together a string of numerals…</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb3-1" title="1"><span class="ot">toRoman4 ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">String</span></a>
+<a class="sourceLine" id="cb3-2" title="2">toRoman4 <span class="dv">0</span> <span class="fu">=</span> <span class="st">&quot;&quot;</span></a>
+<a class="sourceLine" id="cb3-3" title="3">toRoman4 n <span class="fu">=</span> numeral <span class="fu">++</span> toRoman4 (n <span class="fu">-</span> numeralValue)</a>
+<a class="sourceLine" id="cb3-4" title="4">   <span class="kw">where</span> (numeralValue, numeral) <span class="fu">=</span> <span class="fu">head</span> <span class="fu">$</span> <span class="fu">filter</span> ((<span class="fu">&lt;=</span>n) <span class="fu">.</span> <span class="fu">fst</span>) <span class="fu">$</span> <span class="fu">reverse</span> numerals</a></code></pre></div>
+<p>It’s short! Maybe it’s a bit clearer than the above? I don’t think it’s particularly efficient for a few reasons.</p>
+<h2 id="other-interesting-solutions-we-came-across">Other interesting solutions we came across…</h2>
+<p>The solutions I could come up with only used maths. Let’s take a look at some other interesting algorithms.</p>
+<p>Here’s one highlighted by Kevlin Henney in one of his talks (if I find it again I will post the link here!)</p>
+<p>If you imagine the algorithm starts with a straight translation. For example: <code>2547</code> gets initially translated to a string of <code>IIIII</code>…etc repeated 2547 times.</p>
+<p>After that you just perform a string substitution for the replacement numerals!</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb4-1" title="1"><span class="ot">toRoman3 ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">String</span></a>
+<a class="sourceLine" id="cb4-2" title="2">toRoman3 n <span class="fu">=</span> n <span class="fu">&amp;</span> <span class="fu">flip</span> <span class="fu">replicate</span> <span class="ch">'I'</span> <span class="fu">&amp;</span> replace <span class="st">&quot;IIIII&quot;</span> <span class="st">&quot;V&quot;</span>  <span class="fu">&amp;</span></a>
+<a class="sourceLine" id="cb4-3" title="3">                                      replace <span class="st">&quot;IIII&quot;</span>  <span class="st">&quot;IV&quot;</span> <span class="fu">&amp;</span></a>
+<a class="sourceLine" id="cb4-4" title="4">                                      replace <span class="st">&quot;VV&quot;</span>    <span class="st">&quot;X&quot;</span>  <span class="fu">&amp;</span></a>
+<a class="sourceLine" id="cb4-5" title="5">                                      replace <span class="st">&quot;VIV&quot;</span>   <span class="st">&quot;IX&quot;</span> <span class="fu">&amp;</span></a>
+<a class="sourceLine" id="cb4-6" title="6">                                      replace <span class="st">&quot;XXXXX&quot;</span> <span class="st">&quot;L&quot;</span>  <span class="fu">&amp;</span></a>
+<a class="sourceLine" id="cb4-7" title="7">                                      replace <span class="st">&quot;XXXX&quot;</span>  <span class="st">&quot;XL&quot;</span> <span class="fu">&amp;</span></a>
+<a class="sourceLine" id="cb4-8" title="8">                                      replace <span class="st">&quot;LL&quot;</span>    <span class="st">&quot;C&quot;</span>  <span class="fu">&amp;</span></a>
+<a class="sourceLine" id="cb4-9" title="9">                                      replace <span class="st">&quot;LXL&quot;</span>   <span class="st">&quot;XC&quot;</span> <span class="fu">&amp;</span></a>
+<a class="sourceLine" id="cb4-10" title="10">                                      replace <span class="st">&quot;CCCCC&quot;</span> <span class="st">&quot;D&quot;</span>  <span class="fu">&amp;</span></a>
+<a class="sourceLine" id="cb4-11" title="11">                                      replace <span class="st">&quot;CCCC&quot;</span>  <span class="st">&quot;CD&quot;</span> <span class="fu">&amp;</span></a>
+<a class="sourceLine" id="cb4-12" title="12">                                      replace <span class="st">&quot;DD&quot;</span>    <span class="st">&quot;M&quot;</span>  <span class="fu">&amp;</span></a>
+<a class="sourceLine" id="cb4-13" title="13">                                      replace <span class="st">&quot;DCD&quot;</span>   <span class="st">&quot;CM&quot;</span></a></code></pre></div>
+<p>It’s really not very efficient, but it is a very amusing and creative solution.</p>
+<p>This one is pretty interesting as it doesn’t use any maths or string substitution, but uses a look up function, which is applied to the individual numbers of the <em>n</em> we need to translate.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb5-1" title="1"><span class="ot">getNum ::</span> <span class="dt">Char</span> <span class="ot">-&gt;</span> (<span class="dt">Char</span>, <span class="dt">Char</span>, <span class="dt">Char</span>) <span class="ot">-&gt;</span> <span class="dt">String</span></a>
+<a class="sourceLine" id="cb5-2" title="2">getNum n (low, mid, high) <span class="fu">=</span> <span class="kw">case</span> n <span class="kw">of</span> <span class="ch">'1'</span> <span class="ot">-&gt;</span> [low]</a>
+<a class="sourceLine" id="cb5-3" title="3">                                      <span class="ch">'2'</span> <span class="ot">-&gt;</span> [low, low]</a>
+<a class="sourceLine" id="cb5-4" title="4">                                      <span class="ch">'3'</span> <span class="ot">-&gt;</span> [low, low, low]</a>
+<a class="sourceLine" id="cb5-5" title="5">                                      <span class="ch">'4'</span> <span class="ot">-&gt;</span> [low, mid]</a>
+<a class="sourceLine" id="cb5-6" title="6">                                      <span class="ch">'5'</span> <span class="ot">-&gt;</span> [mid]</a>
+<a class="sourceLine" id="cb5-7" title="7">                                      <span class="ch">'6'</span> <span class="ot">-&gt;</span> [mid, low]</a>
+<a class="sourceLine" id="cb5-8" title="8">                                      <span class="ch">'7'</span> <span class="ot">-&gt;</span> [mid, low, low]</a>
+<a class="sourceLine" id="cb5-9" title="9">                                      <span class="ch">'8'</span> <span class="ot">-&gt;</span> [mid, low, low, low]</a>
+<a class="sourceLine" id="cb5-10" title="10">                                      <span class="ch">'9'</span> <span class="ot">-&gt;</span> [low, high]</a>
+<a class="sourceLine" id="cb5-11" title="11">                                      _   <span class="ot">-&gt;</span> []</a>
+<a class="sourceLine" id="cb5-12" title="12"></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="ot">toRoman5 ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">String</span></a>
+<a class="sourceLine" id="cb5-14" title="14">toRoman5 n <span class="fu">=</span>  <span class="kw">let</span> digits <span class="fu">=</span> <span class="fu">show</span> n </a>
+<a class="sourceLine" id="cb5-15" title="15">              <span class="kw">in</span>  <span class="fu">mconcat</span> <span class="fu">$</span> <span class="fu">zipWith</span> getNum digits <span class="fu">$</span> <span class="fu">drop</span> (<span class="dv">4</span> <span class="fu">-</span> <span class="fu">length</span> digits) trips</a>
+<a class="sourceLine" id="cb5-16" title="16"></a>
+<a class="sourceLine" id="cb5-17" title="17"><span class="ot">trips ::</span> [(<span class="dt">Char</span>, <span class="dt">Char</span>, <span class="dt">Char</span>)]</a>
+<a class="sourceLine" id="cb5-18" title="18">trips <span class="fu">=</span> [ (<span class="ch">'M'</span>, <span class="ch">' '</span>, <span class="ch">' '</span>) <span class="co">-- 1000 - ?</span></a>
+<a class="sourceLine" id="cb5-19" title="19">        , (<span class="ch">'C'</span>, <span class="ch">'D'</span>, <span class="ch">'M'</span>) <span class="co">-- 100 - 1000</span></a>
+<a class="sourceLine" id="cb5-20" title="20">        , (<span class="ch">'X'</span>, <span class="ch">'L'</span>, <span class="ch">'C'</span>) <span class="co">-- 10 - 100</span></a>
+<a class="sourceLine" id="cb5-21" title="21">        , (<span class="ch">'I'</span>, <span class="ch">'V'</span>, <span class="ch">'X'</span>) <span class="co">-- 1-10</span></a>
+<a class="sourceLine" id="cb5-22" title="22">        ]</a></code></pre></div>
+
+        </div>
+      </div>
+        <div id="footer">
+          <div id="socials">
+            <a href="https://twitter.com/jaymoid"><img src="../images/twitter-545454.svg" /></a>
+            <a href="https://www.linkedin.com/in/jamespittendreigh/"><img src="../images/linkedin-545454.svg" /></a>
+            <a href="https://github.com/jaymoid"><img src="../images/github-545454.svg" /></a>
+          </div>
+          <div id="hakyll" class="console">
+            Site lovingly generated by 
+            <a href="https://www.haskell.org/"">Haskell</a> and 
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+          </div>
+        </div>
+
+    </body>
+</html>

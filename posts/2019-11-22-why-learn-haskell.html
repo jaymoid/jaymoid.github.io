@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-263882-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-263882-1');
+        </script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>pittendreigh.co.uk - Why should you learn Haskell?</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link rel="stylesheet" type="text/css" href="../css/pandoc-pittendreigh.css" />
+    </head>
+
+    <body>
+      <div id="maincontent">
+        <div id="header" class="card">
+            <div id="logo" class="console">
+                [<a href="../">~/pittendreigh.co.uk</a>]<span class="lambda">λ</span>
+            </div>
+            <div id="navigation">
+                <a href="../contact.html">contact</a>
+                <a href="../">home</a>
+            </div>
+        </div>
+
+        <div id="content" class="card">
+            <h1>Why should you learn Haskell?</h1>
+            <div class="info">
+    Posted on November 22, 2019
+    
+</div>
+<div class="info">
+    
+        Tags: <a href="../tags/haskell.html">haskell</a>, <a href="../tags/functional%20programming.html">functional programming</a>
+    
+</div>
+<p>Before discovering Functional Programming, I thought my programming language experience was quite diverse. I mean the languages I knew could do front-end <em>and</em> backend, what more do you need?! I had used languages like PHP, Python, C++, VB, Java, etc, which I have heard described as “C-style languages”, and I didn’t really know much different. I saw programming languages as tools to get the job done, with a preference for typed languages as I thought I could refactor, understand, and test these more easily.</p>
+<p>I started going to The Leeds Code Dojo, and met lots of cool people using non-mainstream languages. This idea seemed alien to me, why spend time learning a language that nobody was using in industry much, “you won’t get a job with Racket or APL!” I smugly thought to myself. Thinking back to my time at university, I recall regularly discussing the most used languages in industry with fellow students, which at the time this was C++ and Java, so I ensured I knew both well enough to land a job when I finished. Anyway - at the end of the Leeds Code Dojo sessions, you get to show off your solutions. So to my surprise not only were the niche language users solving the solutions, they were solving them rather simply, elegantly. Even though I didn’t know these obscure languages, the code <em>looked</em> like the algorithm it was implementing! Boy was I ashamed to show off my bowl of if-then-else-soup followed up by a plate of nested-for-loop-spaghetti!</p>
+<p>So I started looking into functional programming around the languages I knew at the time, and I found things like RxJava, Java 8 Streams, Scala, and Kotlin. But I initially struggled because I had spent so long thinking imperatively I couldn’t get myself out of that mindset, I would always cheat a bit. A side-effect here, a mutable-data structure there, and those languages were sitting there like <em>“this is fine!”</em> But it wasn’t fine. I wanted to try something stricter, that prevented me being able to do those things in order to curb my old habits and essentially to force me to think differently, or rather to think functionally. I stumbled on Haskell and had been recommended “Learn you a Haskell for Great Good”, and prompty got to reading it!</p>
+<p>In my mind I thought “I’ll learn haskell so that I can think functionally, and then put it into practice and carry on with my life like before, just more functionally.” Little did I know that once you learn Haskell, you don’t look at things the same way again… I’ve learnt why those people learnt non-mainstream languages, there’s many great things about them, and it’s not all about getting and/or staying employed!</p>
+<h2 id="pros-of-learning-haskell">Pros of learning haskell</h2>
+<ul>
+<li><p>You’ll learn to think functionally. When you’re not writing in Haskell, you’ll shoot yourself in the foot far less!</p></li>
+<li><p>Haskell is hands down the most interesting programming language I have ever learnt. It made me see that programming languages can be elegant, efficient, and very much a tool to get the job done.</p></li>
+<li><p>The community around haskell is great. People have patiently gone out of their way to teach me something.</p></li>
+<li><p>Some of the ways haskell has to not shoot yourself in the foot are beautiful, short, succinct.</p></li>
+<li><p>The abstractions that allow you to combine data, are extremely useful and save a lot of code and mistakes. I’m looking at functors, semigroups/monoids, applicatives, and traversables. I miss these in Kotlin/Java et al. Perhapps this is more of a con, but you’ll no doubt have to re-implement all of the abstractions you get for free in Haskell - over many lines of code, and with subtle bugs, and in ways that are not reusable.</p></li>
+<li><p>You’re not just learning Haskell, you’re learning a new method of computation (Lambda calculus). Haskell is very different, and some say this requires a different pedagogical approach. All other languages seem like rehashed versions of the other (or C!), but with slightly different syntax.</p></li>
+<li><p>Haskell has <a href="https://www.youtube.com/watch?v=aNL3137C74c">influenced so many programming languages features</a>, and learning these will set you up so that when your day-language gets pattern-matching/lambdas/green threads/persistant-data-types/algebraic data types/typceclasses/proper recursion/pattern matching/streams/currying/functional composition/parser combinators/partial application/lazy evaluation/property based testing/generalized algebraic data types/etc … then you’ll be prepared (but dissapointed that they are not as good as they are in Haskell!)</p></li>
+<li><p>Finally, you’ll have a heap of fun!</p></li>
+</ul>
+<h2 id="cons">Cons</h2>
+<ul>
+<li><p>If you are not familiar with the concepts, there is a learning curve, but that is not to say it is hard or complex, I don’t think they are, they are simple ideas - but there is many of them, and their names are a little scary sounding.</p></li>
+<li><p>Because you won’t immediately see how you can put these new Haskell skills into practice day-to-day, you may have the constant thought that you should be learning something else. I know some people at my work thought that learning Haskell was pointless academia with no practical uses.</p></li>
+<li><p>You will become a Haskell bore. You know when you’re talking about a film and someone will say “oh the book was <em>much</em> better”, you’re like that but with Haskell and programming languages. You become the walking Haskell cliche.</p></li>
+<li><p>If you follow some of the Haskell folk on twitter, they talk about advanced topics that can seem alien and demotivating because they seem so far out of reach.</p></li>
+<li><p>Haskell is a massive language without including all the language extensions you can enable. It can take up a lot of your time.</p></li>
+<li><p>Haskell tooling leaves a lot to be desired, but it’s extremely work-able. You get a lot from the compiler, you might not even need an IDE.</p></li>
+</ul>
+<h3 id="summary">Summary</h3>
+<p>Learning Haskell is great fun, and I continue to learn things from it. If you like functional programming and want to know more, or get better at thinking functionally, I can highly recommend learning it.</p>
+<p>My tip for learning haskell is to find a good book and stick with it (I recommend Haskell Book!), don’t worry about giving up on a book or course if it’s really not working out for you, there’s many more :)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><a class="sourceLine" id="cb1-1" title="1">  <span class="fu">&gt;&gt;=</span> <span class="st">&quot;May the Monads be with you!&quot;</span> </a></code></pre></div>
+
+        </div>
+      </div>
+        <div id="footer">
+          <div id="socials">
+            <a href="https://twitter.com/jaymoid"><img src="../images/twitter-545454.svg" /></a>
+            <a href="https://www.linkedin.com/in/jamespittendreigh/"><img src="../images/linkedin-545454.svg" /></a>
+            <a href="https://github.com/jaymoid"><img src="../images/github-545454.svg" /></a>
+          </div>
+          <div id="hakyll" class="console">
+            Site lovingly generated by 
+            <a href="https://www.haskell.org/"">Haskell</a> and 
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+          </div>
+        </div>
+
+    </body>
+</html>
